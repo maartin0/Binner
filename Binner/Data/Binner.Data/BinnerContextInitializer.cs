@@ -28,6 +28,8 @@ namespace Binner.Data
             {
                 // seed data
                 SeedInitialUsers(logger, context, passwordHasher);
+                if (context.ChangeTracker.HasChanges())
+                    context.SaveChanges();
                 AddOrUpdatePartTypes(logger, context);
                 AddMissingShortIds(logger, context);
                 UpdateEmptyGlobalIds(logger, context);
