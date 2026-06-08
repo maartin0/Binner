@@ -6,7 +6,8 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy",
-        "WDS_SOCKET_PORT": "0"
+        "WDS_SOCKET_PORT": "0",
+        "BINNER_DB_FILENAME": "./binner.db"
       },
       "dotnetRunMessages": true,
       "externalUrlConfiguration": true,

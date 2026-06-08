@@ -197,6 +197,10 @@ UpgradeLog*.htm
 *.mdf
 *.ldf
 
+# Local dev database and user uploads
+*.db
+UserFiles/
+
 # Business Intelligence projects
 *.rdl.data
 *.bim.layout
