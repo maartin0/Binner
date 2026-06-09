@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { Clipboard } from "../Clipboard";
 import { formatCurrency, formatNumber, isNumeric, convertToNumber } from "../../common/Utils";
 import BarcodeTroubleshootingModal from "./BarcodeTroubleshootingModal";
+import { CameraScanner } from "../CameraScanner";
 import "./BulkScanModal.css";
 
 // overrides BarcodeScannerInput audio support
@@ -65,6 +66,7 @@ export function BulkScanModal({ onBarcodeLookup, onGetPartMetadata, onInventoryP
   const [quantityMode, setQuantityMode] = useState(getLocalData('quantityMode', { settingsName: SettingsContainer, defaultValue: QuantityMode.Increment }));
   const [focusCheckEnabled, setFocusCheckEnabled] = useState(false);
   const [isTroubleshootingOpen, setIsTroubleshootingOpen] = useState(false);
+  const [isCameraOpen, setIsCameraOpen] = useState(false);
 
   useEffect(() => {
     setIsOpen(rest.isOpen);
@@ -950,6 +952,12 @@ export function BulkScanModal({ onBarcodeLookup, onGetPartMetadata, onInventoryP
                 </div>
               </div>
               <p>{rest.isBarcodeReceiving ? t('comp.bulkScanModal.processing', "Processing...") : scannedParts.length > 0 ? t('comp.bulkScanModal.ready', "Ready.") : t('comp.bulkScanModal.startScanning', "Start scanning parts...")}</p>
+              <div style={{ textAlign: 'center', marginBottom: '4px' }}>
+                <Button size='mini' toggle active={isCameraOpen} onClick={() => setIsCameraOpen(v => !v)}>
+                  <Icon name="camera" /> Use Camera
+                </Button>
+              </div>
+              {isCameraOpen && <CameraScanner open={isCameraOpen} onClose={() => setIsCameraOpen(false)} />}
             </div>
             <div style={{ textAlign: "center", position: 'relative' }}>
               <div style={{ position: 'absolute', width: '100%', top: '-10px', textAlign: 'center' }}>

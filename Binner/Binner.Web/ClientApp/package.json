@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@artsy/fresnel": "^6.1.0",
+    "@zxing/browser": "^0.1.4",
     "@binner/binner-licensed": "^1.0.12",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",

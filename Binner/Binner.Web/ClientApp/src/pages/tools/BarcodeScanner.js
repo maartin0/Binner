@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Form, Popup, Input, Icon, Button, Breadcrumb, Table, Segment } from "semantic-ui-react";
 import { toast } from "react-toastify";
 import { BarcodeScannerInput } from "../../components/BarcodeScannerInput";
+import { CameraScanner } from "../../components/CameraScanner";
 import { BarcodeExamplesModal } from "../../components/modals/BarcodeExamplesModal";
 import { Clipboard } from "../../components/Clipboard";
 import { GetTypeName, BarcodeProfiles } from "../../common/Types";
@@ -36,6 +37,7 @@ export function BarcodeScanner(props) {
   const [dummyStartTime, setDummyStartTime] = useState(null);
   const [examplesIsOpen, setExamplesIsOpen] = useState(false);
   const [isTroubleshootingOpen, setIsTroubleshootingOpen] = useState(false);
+  const [isCameraOpen, setIsCameraOpen] = useState(false);
   const dummyTimerRef = useRef();
   const unprotectedDummyTimerRef = useRef();
 
@@ -202,6 +204,12 @@ export function BarcodeScanner(props) {
 
         <h1>{t('page.barcodeScanner.title', "Barcode Scanner")}</h1>
         <p>{t('page.barcodeScanner.description', "Test your barcode scanner to see what values it outputs.")}</p>
+        <div style={{ textAlign: 'center', marginBottom: '4px' }}>
+          <Button size='mini' toggle active={isCameraOpen} onClick={() => setIsCameraOpen(v => !v)}>
+            <Icon name="camera" /> Use Camera
+          </Button>
+        </div>
+        {isCameraOpen && <CameraScanner open={isCameraOpen} onClose={() => setIsCameraOpen(false)} />}
         <Form>
           <div>
             <ProtectedInput

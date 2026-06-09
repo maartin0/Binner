@@ -37,6 +37,7 @@ import { CustomFieldTypes } from "../common/customFieldTypes";
 import { CustomFieldValues } from "../components/CustomFieldValues";
 import { MountingTypes, PackageTypes, PrintModes, GetAdvancedTypeDropdown } from "../common/Types";
 import { BarcodeScannerInput } from "../components/BarcodeScannerInput";
+import { CameraScanner } from "../components/CameraScanner";
 import { Currencies } from "../common/currency";
 import { getSystemSettings } from "../common/applicationSettings";
 import { BinnerLoader } from "../components/BinnerLoader";
@@ -180,6 +181,7 @@ export function Inventory({ partNumber = "", ...rest }) {
   const [lastBarcodeScan, setLastBarcodeScan] = useState(null);
   const [isBulkScanSaving, setBulkScanSaving] = useState(false);
   const [isBarcodeReceiving, setIsBarcodeReceiving] = useState(false);
+  const [isCameraOpen, setIsCameraOpen] = useState(false);
   const [scannedPartsBarcodeInput, setScannedPartsBarcodeInput] = useState(null);
   const [scannedPartsBarcodeQuantity, setScannedPartsBarcodeQuantity] = useState(null);
   const [datasheetMeta, setDatasheetMeta] = useState(null);
@@ -2512,6 +2514,12 @@ export function Inventory({ partNumber = "", ...rest }) {
 
       <Form onSubmit={e => onSubmit(e, part)} className="inventory">
         <BarcodeScannerInput onReceived={handleBarcodeInput} minInputLength={4} swallowKeyEvent={false} enableSound={false} onReadStarted={() => setIsBarcodeReceiving(true)} onReadStopped={() => setIsBarcodeReceiving(false)} />
+        <div style={{ textAlign: 'center', marginBottom: '4px' }}>
+          <Button size='mini' toggle active={isCameraOpen} onClick={() => setIsCameraOpen(v => !v)}>
+            <Icon name="camera" /> Use Camera
+          </Button>
+        </div>
+        {isCameraOpen && <CameraScanner open={isCameraOpen} onClose={() => setIsCameraOpen(false)} />}
         {part && part.partId > 0 && (
           <Button
             type="button"

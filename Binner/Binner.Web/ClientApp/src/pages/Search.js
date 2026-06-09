@@ -10,6 +10,7 @@ import PartsGrid2Memoized from "../components/PartsGrid2Memoized";
 import { fetchApi } from "../common/fetchApi";
 import { FormHeader } from "../components/FormHeader";
 import { BarcodeScannerInput } from "../components/BarcodeScannerInput";
+import { CameraScanner } from "../components/CameraScanner";
 
 export function Search(props) {
   const DebounceTimeMs = 400;
@@ -38,6 +39,7 @@ export function Search(props) {
   const [renderIsDirty, setRenderIsDirty] = useState(true);
   const [initComplete, setInitComplete] = useState(false);
   const [showPartNotFound, setShowPartNotFound] = useState(false);
+  const [isCameraOpen, setIsCameraOpen] = useState(false);
 
   const handleInit = (config) => {
     setPageSize(config.pageSize);
@@ -305,6 +307,12 @@ export function Search(props) {
             onBarcodeReadReceived={(e) => { searchDebounced.cancel();  }}
           />
         </Form.Field>
+        <div style={{ textAlign: 'center', marginBottom: '4px' }}>
+          <Button size='mini' toggle active={isCameraOpen} onClick={() => setIsCameraOpen(v => !v)}>
+            <Icon name="camera" /> Use Camera
+          </Button>
+        </div>
+        {isCameraOpen && <CameraScanner open={isCameraOpen} onClose={() => setIsCameraOpen(false)} />}
         <div className="suggested-part">
             {showPartNotFound && 
               <span><Icon name="warning sign" color="yellow" />

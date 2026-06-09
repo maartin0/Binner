@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { format, parseJSON } from "date-fns";
 import { formatCurrency, isNumeric } from "../common/Utils";
 import { BarcodeScannerInput } from "../components/BarcodeScannerInput";
+import { CameraScanner } from "../components/CameraScanner";
 import OrderPartsGrid from "../components/OrderPartsGrid";
 import { BinnerLoader } from "../components/BinnerLoader";
 import { getLocalData, setLocalData } from "../common/storage";
@@ -35,6 +36,7 @@ export function OrderImport(props) {
   };
 
   const [viewOrdersIsOpen, setViewOrdersIsOpen] = useState(false);
+  const [isCameraOpen, setIsCameraOpen] = useState(false);
   const [orderLabel, setOrderLabel] = useState(t('page.orderImport.salesOrderNum', "Sales Order #"));
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingText, setIsLoadingText] = useState('Loading...');
@@ -632,6 +634,12 @@ export function OrderImport(props) {
         onConfirm={handleConfirmReImport}
       />
       <BarcodeScannerInput onReceived={handleBarcodeInput} swallowKeyEvent={false} minInputLength={4} enableSound={false} />
+      <div style={{ textAlign: 'center', marginBottom: '4px' }}>
+        <Button size='mini' toggle active={isCameraOpen} onClick={() => setIsCameraOpen(v => !v)}>
+          <Icon name="camera" /> Use Camera
+        </Button>
+      </div>
+      {isCameraOpen && <CameraScanner open={isCameraOpen} onClose={() => setIsCameraOpen(false)} />}
       <h1>{t('page.orderImport.title', "Order Import")}</h1>
       <Form>
         <Form.Group>
