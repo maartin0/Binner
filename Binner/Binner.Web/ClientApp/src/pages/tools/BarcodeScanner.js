@@ -309,34 +309,36 @@ export function BarcodeScanner(props) {
 
       <Segment color="green">
         <h5>{t('page.barcodeScanner.history', "History")}</h5>
-        <Table className="history">
-          <Table.Header>
-            <Table.Row>
-              <Table.Cell></Table.Cell>
-              <Table.Cell>Successful</Table.Cell>
-              <Table.Cell>Description</Table.Cell>
-              <Table.Cell>Type</Table.Cell>
-              <Table.Cell>Length</Table.Cell>
-              <Table.Cell>Codes</Table.Cell>
-              <Table.Cell>Date</Table.Cell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {scanHistory.length > 0
-              ? scanHistory.map((item, key) =>
-                <Table.Row key={key}>
-                  <Table.Cell><Link onClick={e => loadHistory(e, item)}>View</Link></Table.Cell>
-                  <Table.Cell>{item.success ? <Icon name="check circle" color="green" /> : <Icon name="times circle" color="red" />}</Table.Cell>
-                  <Table.Cell>{item.value?.supplierPartNumber || item.value?.description || item.value?.mfgPartNumber || item.value?.salesOrder || "unknown"}</Table.Cell>
-                  <Table.Cell>{item.type}</Table.Cell>
-                  <Table.Cell>{item.rawValue.length}</Table.Cell>
-                  <Table.Cell>{item.rsDetected && "RS"} {item.gsDetected && "GS"} {item.eotDetected && "EOT"}</Table.Cell>
-                  <Table.Cell>{format(item.logDate, Format12HourTimeSeconds)}</Table.Cell>
-                </Table.Row>
-              )
-              : <Table.Row><Table.Cell colSpan="7" textAlign="center"> No history available.</Table.Cell></Table.Row>}
-          </Table.Body>
-        </Table>
+        <div className="table-scroll">
+          <Table className="history">
+            <Table.Header>
+              <Table.Row>
+                <Table.Cell></Table.Cell>
+                <Table.Cell>Successful</Table.Cell>
+                <Table.Cell>Description</Table.Cell>
+                <Table.Cell>Type</Table.Cell>
+                <Table.Cell>Length</Table.Cell>
+                <Table.Cell>Codes</Table.Cell>
+                <Table.Cell>Date</Table.Cell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              {scanHistory.length > 0
+                ? scanHistory.map((item, key) =>
+                  <Table.Row key={key}>
+                    <Table.Cell><Link onClick={e => loadHistory(e, item)}>View</Link></Table.Cell>
+                    <Table.Cell>{item.success ? <Icon name="check circle" color="green" /> : <Icon name="times circle" color="red" />}</Table.Cell>
+                    <Table.Cell>{item.value?.supplierPartNumber || item.value?.description || item.value?.mfgPartNumber || item.value?.salesOrder || "unknown"}</Table.Cell>
+                    <Table.Cell>{item.type}</Table.Cell>
+                    <Table.Cell>{item.rawValue.length}</Table.Cell>
+                    <Table.Cell>{item.rsDetected && "RS"} {item.gsDetected && "GS"} {item.eotDetected && "EOT"}</Table.Cell>
+                    <Table.Cell>{format(item.logDate, Format12HourTimeSeconds)}</Table.Cell>
+                  </Table.Row>
+                )
+                : <Table.Row><Table.Cell colSpan="7" textAlign="center"> No history available.</Table.Cell></Table.Row>}
+            </Table.Body>
+          </Table>
+        </div>
       </Segment>
     </div>
   );

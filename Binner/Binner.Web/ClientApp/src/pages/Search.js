@@ -331,7 +331,9 @@ export function Search(props) {
           ))
         }
       </div>
-      {renderPartsTable}
+      <div className="table-scroll">
+        {renderPartsTable}
+      </div>
     </div>
   );
 }

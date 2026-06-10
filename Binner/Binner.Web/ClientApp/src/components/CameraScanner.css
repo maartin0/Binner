@@ -3,6 +3,8 @@
   flex-direction: column;
   align-items: center;
   margin: 10px 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .camera-preview-wrapper {
@@ -51,4 +53,14 @@
   gap: 8px;
   justify-content: center;
   margin-top: 8px;
+}
+
+@media (max-width: 767px) {
+  .camera-preview-wrapper {
+    width: 100%;
+  }
+
+  .camera-preview-wrapper video {
+    max-width: 100%;
+  }
 }

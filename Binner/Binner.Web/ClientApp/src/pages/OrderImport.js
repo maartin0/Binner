@@ -520,20 +520,22 @@ export function OrderImport(props) {
             </Table.Row>}
           </Table.Header>
         </Table>
-        <OrderPartsGrid
-          parts={order.parts}
-          onSelectedPartsChange={handleSelectPartChanged}
-          page={page}
-          totalPages={totalPages}
-          totalRecords={totalRecords}
-          loading={isLoading}
-          loadPage={handleSetPage}
-          onPartClick={handlePartClick}
-          onPageSizeChange={handlePageSizeChange}
-          onInit={handleInit}
-          name="partsGrid">
-          {t('message.noMatchingResults', "No matching results.")}
-        </OrderPartsGrid>
+        <div className="table-scroll">
+          <OrderPartsGrid
+            parts={order.parts}
+            onSelectedPartsChange={handleSelectPartChanged}
+            page={page}
+            totalPages={totalPages}
+            totalRecords={totalRecords}
+            loading={isLoading}
+            loadPage={handleSetPage}
+            onPartClick={handlePartClick}
+            onPageSizeChange={handlePageSizeChange}
+            onInit={handleInit}
+            name="partsGrid">
+            {t('message.noMatchingResults', "No matching results.")}
+          </OrderPartsGrid>
+        </div>
         <div className="centered" style={{ marginTop: '10px' }}>
           <Button primary onClick={handleImportParts} disabled={_.filter(orderImportSearchResult.parts, i => i.selected).length === 0}>
             <Trans i18nKey="button.importParts" count={_.filter(orderImportSearchResult.parts, i => i.selected).length}>
